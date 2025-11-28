@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<button onclick="generateDom()">fetch</button>
+<div id="storer">
+
+</div>
+<h1>Name Here</h1>
+<div id="namelists">
+    
+ 
+</div>
+
+
+    <script>
+        const dataId = []
+        const namelists = document.getElementById('namelists')
+        const storer = document.getElementById('storer')
+        async function fetchData() {
+            const studentData = await fetch("http://localhost:3000/users")
+            const data = await studentData.json()
+            return data
+        }
+        async function generateDom() {
+            const data = await fetchData()
+            namelists.textContent = ''
+            data.forEach(el => {
+                const list = document.createElement('li')
+                list.className = 'nameLi'
+                list.textContent = el.name
+                list.dataset.id = el.id
+                namelists.appendChild(list)
+            });
+            document.addEventListener('click' ,(e)=>{
+            dataId.push(e.target.dataset.id)
+            selected()
+        })
+        }
+        
+        function selected() {
+            storer.textContent = ''
+             dataId.forEach(el => {
+                
+                const list = document.createElement('li')
+                list.className = 'nameLi'
+                list.textContent = el
+                storer.appendChild(list)
+            });
+        }
+    </script>
+</body>
+</html>
