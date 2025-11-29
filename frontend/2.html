@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="date" id="targetDate">
+<p>Days difference: <span id="result">0</span></p>
+<script>
+    function dateCalculator() {
+  const setup = () => {
+    const dateInput = document.getElementById("targetDate");
+    const resultSpan = document.getElementById("result");
+    calculateDiff(dateInput, resultSpan);
+  };
+
+  const calculateDiff = (dateInput, resultSpan) => {
+    dateInput.addEventListener("change", () => {
+        const timeInput = dateInput.value
+        const now = new Date()
+        const selectedTime = new Date(timeInput)
+        selectedTime.setHours(0,0,0,0)
+        now.setHours(0,0,0,0)
+        const dayleft =  Math.ceil(((selectedTime - now) / (1000 * 60 * 60 * 24))) 
+        if ( dayleft >  0) {
+            resultSpan.textContent = `${dayleft} Days left`
+            resultSpan.style.color = "green"
+        }
+        else if(dayleft == 0){
+            resultSpan.textContent = `Today`
+            resultSpan.style.color = "blue"
+        }
+        else{
+            resultSpan.textContent = `${dayleft * -1} Days ago`
+            resultSpan.style.color = "red"
+        }
+        
+    });
+  };
+
+  return { setup, calculateDiff };
+}
+
+// Boilerplate ของอาจารย์
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = dateCalculator;
+}
+if (typeof window !== 'undefined') {
+   window.addEventListener("DOMContentLoaded", () => {
+    const { setup } = dateCalculator();
+    setup();
+  });
+}
+</script>
+</body>
+</html>
