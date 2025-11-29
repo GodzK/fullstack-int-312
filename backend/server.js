@@ -1,11 +1,15 @@
 const express = require('express')
+const dotenv = require("dotenv")
+dotenv.config()
 const app = express()
 const cors = require('cors')
-const userRouter = require('./router/student.router')
+
+const studentRouter = require('./router/student.router')
 const courseRouter = require('./router/course.router')
 app.use(express.json())
+
 app.use(cors())
-app.use('/users' , userRouter )
+app.use('/student' , studentRouter )
 app.use('/courses' , courseRouter)
 
 

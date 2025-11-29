@@ -11,4 +11,17 @@ async function getAllStudents (req, res, next){
     
 }
 
-module.exports = {getAllStudents}
+async function getStudentById (req, res, next){
+    const {studentId} = req.params
+    console.log(studentId);
+    try{
+        const data = await studentService.getStudentById(studentId)
+        res.json(data)
+    }
+    catch(err){
+        res.json(err)
+    }
+    
+}
+
+module.exports = {getAllStudents , getStudentById}

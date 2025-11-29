@@ -4,6 +4,7 @@ const router = express.Router()
 
 
 router.get('/' , usercontroller.getAllStudents)
+router.get('/:studentId' , usercontroller.getStudentById)
 
 
 module.exports = router; 

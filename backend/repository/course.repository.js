@@ -14,5 +14,22 @@ async function getAllcourse(skip, take, order) {
 
   return course;
 }
+async function getCourseById(id) {
+    const [rows] = await pool.query(`SELECT students.name FROM course_student inner join students on students.id=course_student.student_id   where course_id = ${id}`)
+    return rows
+}
+async function addCourse(course_id , student_id , grade) {
+  const [course] = await pool.query(
+    `insert into course_student (course_id, student_id, grade) values (${course_id}, ${student_id}, ${grade})`,
+  )
+  return course;
+}
 
-module.exports = { getAllcourse };
+async function deleteCourse(course_id , student_id ) {
+  const [course] = await pool.query(
+    `delete from course_student where course_id=${course_id} and student_id=${student_id}`,
+  )
+  return course;
+}
+
+module.exports = { getAllcourse ,getCourseById , addCourse , deleteCourse};
